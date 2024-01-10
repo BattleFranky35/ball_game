@@ -1,18 +1,30 @@
 function button(text, func, param, width, height)
     return {
-        width = width or 100,
-        height = height or 100,
-        func = func or function() print("empty function") end,
+        width = width,
+        height = height,
+        func = func,
         param = param,
-        text = text or 'no text',
+        text = text,
         bottonX = 0,
         bottonY = 0,
         textX = 0,
         textY = 0,
 
-        draw = function(self, bottonX, bottonY, textX, textY)
-            self.buttonX = buttonX or self.buttonX
-            self.buttonY = buttonY or self.buttonY
+        pressed = function(self, mouseX, mouseY, cursorRadius)
+            if (mouseX + cursorRadius >= self.buttonX) and (mouseX + cursorRadius <= self.buttonX + self.width) then
+                if (mouseY + cursorRadius >= self.buttonY) and (mouseY + cursorRadius <= self.buttonY + self.height) then
+                    if self.param then
+                        self.func(self.param)
+                    else
+                        self.func()
+                    end
+                end
+            end
+        end,
+
+        draw = function(self, buttonX, buttonY, textX, textY)
+            self.buttonX = buttonX
+            self.buttonY = buttonY
 
             if textX then
                 self.textX = textX + self.buttonX

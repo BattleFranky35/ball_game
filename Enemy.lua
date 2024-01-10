@@ -1,4 +1,4 @@
-function enemy()
+function enemy(level)
     local dice = math.random(1, 4)
     local x
     local y
@@ -19,10 +19,14 @@ function enemy()
     end
 
     return {
-        level = 1,
+        level = level,
         radius = radius,
         x = x,
         y = y,
+
+        checkTouched = function(self, playerX, playerY, cursorRadius)
+            return math.sqrt((self.x - playerX) ^ 2 + (self.y - playerY) ^ 2) <= cursorRadius * 2
+        end,
 
         move = function(self, playerX, playerY)
             if playerX - self.x > 0 then
